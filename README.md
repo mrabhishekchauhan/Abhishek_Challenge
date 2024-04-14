@@ -1,6 +1,6 @@
 # AWS Challenge : Deploy Web Server and Validate Credit Cards
 
-This repository contains a CloudFormation template (`webServer.json`) that deploys a web server with SSL/TLS support on AWS and golang code to validate credit card numbers. Below, you'll find an explanation of each component of the template and instructions on how to create a testKeyPair manually through KeyPairs in the AWS console, as well as how to start the web server and access it.
+This repository contains a CloudFormation template (`webServer.json`) that deploys a web server with SSL/TLS support on AWS and golang code (`validateCreditCard.go`) to validate credit card numbers. Below, you'll find an explanation of each component of the template and instructions on how to create a testKeyPair manually through KeyPairs in the AWS console, as well as how to start the web server and access it.
 
 ## Template Components
 
