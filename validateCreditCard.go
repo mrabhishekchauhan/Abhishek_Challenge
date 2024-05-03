@@ -2,35 +2,22 @@ package main
 
 import (
 	"fmt"
+    "bufio"
+    "os"
 	"regexp"
 	"strings"
 )
 
 // validateCreditCards validates a list of credit card numbers
-func validateCreditCards(creditCards []string) {
+func validateCreditCards(cc string) {
 	// Define regular expression to validate the structure of a credit card number
-	validStructure := regexp.MustCompile(`[456]\d{3}(-?\d{4}){3}$`)
-	// Create a list of filters containing the valid structure
-	filters := []string{validStructure.String()}
-
-	for _, cc := range creditCards {
-		valid := true
-		for _, f := range filters {
-			// Check if the credit card number matches the valid structure
-			// and does not contain four repeated digits consecutively
-			if !regexp.MustCompile(f).MatchString(cc) || containsFourRepeats(cc) {
-				valid = false
-				break
-			}
-		}
-		if valid {
-			fmt.Println("Valid")
-		} else {
-			fmt.Println("Invalid")
-		}
-	}
+	validStructure := regexp.MustCompile(`^[456]\d{3}(-?\d{4}){3}$`)
+    if validStructure.MatchString(cc) && !containsFourRepeats(cc) {
+        fmt.Println("Valid")
+    } else {
+        fmt.Println("Invalid")
+    }
 }
-
 // containsFourRepeats checks if a credit card number contains four repeated digits consecutively
 func containsFourRepeats(cc string) bool {
 	// Remove hyphens from the credit card number
@@ -48,14 +35,12 @@ func main() {
 	var numCards int
 	fmt.Scanln(&numCards)
 
-	creditCards := make([]string, numCards)
-	for i := 0; i < numCards; i++ {
-		var card string
-		fmt.Scanln(&card)
-		// Trim leading and trailing whitespace from the credit card number
-		creditCards[i] = strings.TrimSpace(card)
+	scanner := bufio.NewScanner(os.Stdin)
+	//var creditCards []string
+	for scanner.Scan() {
+		line := scanner.Text()
+        // Validate the credit card numbers
+        validateCreditCards(line)
 	}
 
-	// Validate the credit card numbers
-	validateCreditCards(creditCards)
 }
